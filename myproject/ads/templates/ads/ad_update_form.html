@@ -1,0 +1,20 @@
+{% extends 'ads/base.html' %}
+
+{% block title %}
+  Update ad
+{% endblock %}
+
+{% block body %}
+  <h1>Update ad</h1>
+  <div>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Update</button>
+    </form>
+  </div>
+  <div>
+    <a href="{% url 'ads:ads_list' %}"
+    >Back to ads list</a>
+  </div>
+{% endblock %}

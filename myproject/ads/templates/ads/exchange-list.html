@@ -1,0 +1,36 @@
+{% extends 'ads/base.html' %}
+
+{% block title %}
+  Exchange Proposals list
+{% endblock %}
+
+{% block body %}
+  <h1>Exchange Proposals:</h1>
+  {% if object_list %}
+    <div>
+      {% for ex in object_list %}
+        <div>
+          <ul>
+            <li>
+              <p><b>ID: {{ ex.id }}</b></p>
+              <p>Ad sender ID: {{ ex.ad_sender.id }}</p>
+              <p>Ad receiver ID: {{ ex.ad_receiver.id }}</p>
+              <p>Comment: {{ ex.comment }}</p>
+              <p>Status: {{ ex.status }}</p>
+              <p>Created at: {{ ex.created_at }}</p>
+            </li>
+          </ul>
+
+        </div>
+      {% endfor %}
+
+    </div>
+  {% else %}
+    <h3>No exchange proposals yet</h3>
+  {% endif %}
+
+  <div>
+      <a href="{% url 'ads:exchange_create' %}">
+        Create a new exchange proposal</a>
+  </div>
+{% endblock %}
