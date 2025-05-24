@@ -12,17 +12,23 @@ from .serializers import AdSerializer, ExchangeSerializer
 
 
 class AdsListView(ListView):
+    """"Отображение списка всех объявлений"""
+
     template_name = "ads/ads-list.html"
     queryset = Ad.objects.select_related("user").all()
 
 
 class AdCreateView(CreateView):
+    """"Создание объявления"""
+
     model = Ad
     fields = "user", "title", "description", "image_url", "category", "condition"
     success_url = reverse_lazy("ads:ads_list")
 
 
 class AdUpdateView(UpdateView):
+    """"Редактирование объявления"""
+
     model = Ad
     template_name_suffix = "_update_form"
     form_class = AdForm
@@ -38,11 +44,15 @@ class AdUpdateView(UpdateView):
 
 
 class AdDeleteView(DeleteView):
+    """"Удаление объявления"""
+
     model = Ad
     success_url = reverse_lazy("ads:ads_list")
 
 
 class AdViewSet(ModelViewSet):
+    """"Реализация поиска и фильтрации объявлений"""
+
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
     filter_backends = [
@@ -57,12 +67,16 @@ class AdViewSet(ModelViewSet):
 
 
 class ExchangeCreateView(CreateView):
+    """"Создание предложения обмена"""
+
     model = ExchangeProposal
     fields = "ad_sender", "ad_receiver", "comment"
     success_url = reverse_lazy("ads:exchanges_list")
 
 
 class ExchangeUpdateView(UpdateView):
+    """"Обновление предложения"""
+
     model = ExchangeProposal
     template_name_suffix = "_update_form"
     fields = ("status",)
@@ -72,11 +86,15 @@ class ExchangeUpdateView(UpdateView):
 
 
 class ExchangesListView(ListView):
+    """"Просмотр списка всех предложений"""
+
     template_name = "ads/exchange-list.html"
     queryset = ExchangeProposal.objects.select_related("ad_sender", "ad_receiver").all()
 
 
 class ExchangeViewSet(ModelViewSet):
+    """"Реализация фильтрации предложений"""
+
     queryset = ExchangeProposal.objects.all()
     serializer_class = ExchangeSerializer
     filterset_fields = [
