@@ -12,14 +12,14 @@ from .serializers import AdSerializer, ExchangeSerializer
 
 
 class AdsListView(ListView):
-    """"Отображение списка всех объявлений"""
+    """Отображение списка всех объявлений"""
 
     template_name = "ads/ads-list.html"
     queryset = Ad.objects.select_related("user").all()
 
 
 class AdCreateView(CreateView):
-    """"Создание объявления"""
+    """Создание объявления"""
 
     model = Ad
     fields = "user", "title", "description", "image_url", "category", "condition"
@@ -27,7 +27,7 @@ class AdCreateView(CreateView):
 
 
 class AdUpdateView(UpdateView):
-    """"Редактирование объявления"""
+    """Редактирование объявления"""
 
     model = Ad
     template_name_suffix = "_update_form"
@@ -44,14 +44,14 @@ class AdUpdateView(UpdateView):
 
 
 class AdDeleteView(DeleteView):
-    """"Удаление объявления"""
+    """Удаление объявления"""
 
     model = Ad
     success_url = reverse_lazy("ads:ads_list")
 
 
 class AdViewSet(ModelViewSet):
-    """"Реализация поиска и фильтрации объявлений"""
+    """Реализация поиска и фильтрации объявлений"""
 
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
@@ -67,7 +67,7 @@ class AdViewSet(ModelViewSet):
 
 
 class ExchangeCreateView(CreateView):
-    """"Создание предложения обмена"""
+    """Создание предложения обмена"""
 
     model = ExchangeProposal
     fields = "ad_sender", "ad_receiver", "comment"
@@ -75,7 +75,7 @@ class ExchangeCreateView(CreateView):
 
 
 class ExchangeUpdateView(UpdateView):
-    """"Обновление предложения"""
+    """Обновление предложения"""
 
     model = ExchangeProposal
     template_name_suffix = "_update_form"
@@ -86,14 +86,14 @@ class ExchangeUpdateView(UpdateView):
 
 
 class ExchangesListView(ListView):
-    """"Просмотр списка всех предложений"""
+    """Просмотр списка всех предложений"""
 
     template_name = "ads/exchange-list.html"
     queryset = ExchangeProposal.objects.select_related("ad_sender", "ad_receiver").all()
 
 
 class ExchangeViewSet(ModelViewSet):
-    """"Реализация фильтрации предложений"""
+    """Реализация фильтрации предложений"""
 
     queryset = ExchangeProposal.objects.all()
     serializer_class = ExchangeSerializer
